@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>คำนวณอัตราส่วนทางการเงิน</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 20px;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+        }
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 5px 0;
+        }
+        button {
+            background-color: #007BFF;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>คำนวณอัตราส่วนทางการเงิน</h2>
+
+    <div class="container">
+        <label>💰 เงินฝากธนาคาร + เงินสดในมือ:</label>
+        <input type="number" id="cashSavings" placeholder="ใส่จำนวนเงิน">
+
+        <label>💳 หนี้บัตรเครดิต:</label>
+        <input type="number" id="creditDebt" placeholder="ใส่จำนวนเงิน">
+
+        <label>📆 รายจ่ายต่อเดือน:</label>
+        <input type="number" id="monthlyExpenses" placeholder="ใส่จำนวนเงิน">
+
+        <label>💵 เงินออม + เงินลงทุน:</label>
+        <input type="number" id="investments" placeholder="ใส่จำนวนเงิน">
+
+        <label>🏠 รายได้ต่อเดือน:</label>
+        <input type="number" id="monthlyIncome" placeholder="ใส่จำนวนเงิน">
+
+        <button onclick="calculateRatios()">คำนวณ</button>
+
+        <div class="result" id="ratio1"></div>
+        <div class="result" id="ratio2"></div>
+        <div class="result" id="ratio3"></div>
+    </div>
+
+    <script>
+        function calculateRatios() {
+            let cashSavings = parseFloat(document.getElementById("cashSavings").value) || 0;
+            let creditDebt = parseFloat(document.getElementById("creditDebt").value) || 1;
+            let monthlyExpenses = parseFloat(document.getElementById("monthlyExpenses").value) || 1;
+            let investments = parseFloat(document.getElementById("investments").value) || 0;
+            let monthlyIncome = parseFloat(document.getElementById("monthlyIncome").value) || 1;
+
+            let ratio1 = (cashSavings / creditDebt).toFixed(2);
+            let ratio2 = (cashSavings / monthlyExpenses).toFixed(2);
+            let ratio3 = (investments / monthlyIncome).toFixed(2);
+
+            document.getElementById("ratio1").innerHTML = `🔹 สัดส่วนเงินสดต่อหนี้บัตรเครดิต: <b>${ratio1}</b>`;
+            document.getElementById("ratio2").innerHTML = `🔹 สัดส่วนเงินสดต่อรายจ่ายต่อเดือน: <b>${ratio2}</b>`;
+            document.getElementById("ratio3").innerHTML = `🔹 สัดส่วนเงินออมและเงินลงทุนต่อรายได้ต่อเดือน: <b>${ratio3}</b>`;
+        }
+    </script>
+
+</body>
+</html>
