@@ -32,6 +32,8 @@
         }
         .input-group {
             margin-bottom: 15px;
+            display: flex;
+            align-items: center;
         }
         .input-group span {
             display: inline-block;
@@ -60,7 +62,7 @@
             border-radius: 4px;
         }
         button {
-            width: 100%;
+            width: 30%;
             padding: 10px;
             background-color: #4CAF50;
             color: white;
@@ -68,9 +70,21 @@
             border-radius: 4px;
             cursor: pointer;
             font-size: 16px;
+            margin-top: 10px;
         }
         button:hover {
             background-color: #45a049;
+        }
+        .fraction {
+            display: flex;
+            align-items: center;
+        }
+        .fraction span {
+            margin: 0 5px;
+        }
+        .fraction .top {
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
         }
     </style>
 </head>
@@ -82,60 +96,72 @@
             
             <!-- ส่วนที่ 1: Savings / Credit Debt -->
             <div class="input-group">
-                <label for="savings">Bank Savings + Cash:</label>
+                <label for="savings">เงินฝากธนาคาร + เงินสด:</label>
                 <input type="number" id="savings" required>
-                <span>/</span>
+                <span class="fraction">
+                    <span class="top">/</span>
+                </span>
+                <label for="creditDebt">หนี่บัตรเครดิต:</label>
                 <input type="number" id="creditDebt" required>
                 <div class="equals">=</div>
                 <div id="result1" class="result"></div>
+                <button type="button" onclick="calculateRatio1()">Calculate</button>
             </div>
 
             <!-- ส่วนที่ 2: Savings / Monthly Expenses -->
             <div class="input-group">
-                <label for="monthlyExpenses">Monthly Expenses:</label>
+                <label for="savings">เงินฝากธนาคาร + เงินสด:</label>
+                <input type="number" id="savings2" required>
+                <span class="fraction">
+                    <span class="top">/</span>
+                </span>
+                <label for="monthlyExpenses">รายจ่ายต่อเดือน:</label>
                 <input type="number" id="monthlyExpenses" required>
-                <span>/</span>
-                <input type="number" id="expensesDebt" required>
                 <div class="equals">=</div>
                 <div id="result2" class="result"></div>
+                <button type="button" onclick="calculateRatio2()">Calculate</button>
             </div>
 
             <!-- ส่วนที่ 3: Savings + Investments / Monthly Income -->
             <div class="input-group">
-                <label for="savingsInvestment">Savings + Investments:</label>
+                <label for="savingsInvestment">เงินออม+เงินลงทุนต่อเดือน:</label>
                 <input type="number" id="savingsInvestment" required>
-                <span>/</span>
+                <span class="fraction">
+                    <span class="top">/</span>
+                </span>
+                <label for="monthlyIncome">รายได้ต่อเดือน:</label>
                 <input type="number" id="monthlyIncome" required>
                 <div class="equals">=</div>
                 <div id="result3" class="result"></div>
+                <button type="button" onclick="calculateRatio3()">Calculate</button>
             </div>
 
-            <button type="submit">Calculate</button>
         </form>
     </div>
 
     <script>
-        document.getElementById('calculatorForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-
+        function calculateRatio1() {
             var savings = parseFloat(document.getElementById('savings').value);
             var creditDebt = parseFloat(document.getElementById('creditDebt').value);
+            var ratio1 = savings / creditDebt;
+            document.getElementById('result1').innerHTML = ratio1.toFixed(2);
+        }
+
+        function calculateRatio2() {
+            var savings2 = parseFloat(document.getElementById('savings2').value);
             var monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value);
-            var expensesDebt = parseFloat(document.getElementById('expensesDebt').value);
+            var ratio2 = savings2 / monthlyExpenses;
+            document.getElementById('result2').innerHTML = ratio2.toFixed(2);
+        }
+
+        function calculateRatio3() {
             var savingsInvestment = parseFloat(document.getElementById('savingsInvestment').value);
             var monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value);
-
-            // คำนวณแต่ละ ratio
-            var ratio1 = savings / creditDebt;
-            var ratio2 = monthlyExpenses / expensesDebt;
             var ratio3 = savingsInvestment / monthlyIncome;
-
-            // แสดงผลลัพธ์
-            document.getElementById('result1').innerHTML = ratio1.toFixed(2);
-            document.getElementById('result2').innerHTML = ratio2.toFixed(2);
             document.getElementById('result3').innerHTML = ratio3.toFixed(2);
-        });
+        }
     </script>
 
 </body>
 </html>
+
