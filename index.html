@@ -1,89 +1,140 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>คำนวณอัตราส่วนทางการเงิน</title>
+    <title>Financial Health Calculator</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 20px;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
         }
         .container {
-            max-width: 400px;
+            width: 80%;
             margin: auto;
+            padding-top: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        form {
+            background-color: #fff;
             padding: 20px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
-            box-shadow: 2px 2px 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
-        input {
-            width: 50%;
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .input-group {
+            margin-bottom: 15px;
+        }
+        .input-group span {
+            display: inline-block;
+            width: 20%;
+            text-align: center;
+            font-weight: bold;
+        }
+        .input-group input {
+            width: 30%;
             padding: 8px;
-            margin: 3px 0;
+            margin: 0 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
         }
-        button {
-            background-color: #007BFF;
-            color: white;
-            padding: 3px;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            width: 50%;
-        }
-        button:hover {
-            background-color: #0056b3;
+        .input-group .equals {
+            display: inline-block;
+            width: 20%;
+            text-align: center;
+            font-weight: bold;
         }
         .result {
-            margin-top: 10px;
-            font-weight: bold;
+            margin-top: 20px;
+            background-color: #e7f5e7;
+            padding: 10px;
+            border-radius: 4px;
+        }
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #45a049;
         }
     </style>
 </head>
 <body>
 
-    <h2>คำนวณอัตราส่วนทางการเงิน</h2>
-
     <div class="container">
-        <label>💰 เงินฝากธนาคาร + เงินสดในมือ:</label>
-        <input type="number" id="cashSavings" placeholder="ใส่จำนวนเงิน">
+        <h1>Financial Health Calculator</h1>
+        <form id="calculatorForm">
+            
+            <!-- ส่วนที่ 1: Savings / Credit Debt -->
+            <div class="input-group">
+                <label for="savings">Bank Savings + Cash:</label>
+                <input type="number" id="savings" required>
+                <span>/</span>
+                <input type="number" id="creditDebt" required>
+                <div class="equals">=</div>
+                <div id="result1" class="result"></div>
+            </div>
 
-        <label>💳 หนี้บัตรเครดิต:</label>
-        <input type="number" id="creditDebt" placeholder="ใส่จำนวนเงิน">
+            <!-- ส่วนที่ 2: Savings / Monthly Expenses -->
+            <div class="input-group">
+                <label for="monthlyExpenses">Monthly Expenses:</label>
+                <input type="number" id="monthlyExpenses" required>
+                <span>/</span>
+                <input type="number" id="expensesDebt" required>
+                <div class="equals">=</div>
+                <div id="result2" class="result"></div>
+            </div>
 
-        <label>📆 รายจ่ายต่อเดือน:</label>
-        <input type="number" id="monthlyExpenses" placeholder="ใส่จำนวนเงิน">
+            <!-- ส่วนที่ 3: Savings + Investments / Monthly Income -->
+            <div class="input-group">
+                <label for="savingsInvestment">Savings + Investments:</label>
+                <input type="number" id="savingsInvestment" required>
+                <span>/</span>
+                <input type="number" id="monthlyIncome" required>
+                <div class="equals">=</div>
+                <div id="result3" class="result"></div>
+            </div>
 
-        <label>💵 เงินออม + เงินลงทุน:</label>
-        <input type="number" id="investments" placeholder="ใส่จำนวนเงิน">
-
-        <label>🏠 รายได้ต่อเดือน:</label>
-        <input type="number" id="monthlyIncome" placeholder="ใส่จำนวนเงิน">
-
-        <button onclick="calculateRatios()">คำนวณ</button>
-
-        <div class="result" id="ratio1"></div>
-        <div class="result" id="ratio2"></div>
-        <div class="result" id="ratio3"></div>
+            <button type="submit">Calculate</button>
+        </form>
     </div>
 
     <script>
-        function calculateRatios() {
-            let cashSavings = parseFloat(document.getElementById("cashSavings").value) || 0;
-            let creditDebt = parseFloat(document.getElementById("creditDebt").value) || 1;
-            let monthlyExpenses = parseFloat(document.getElementById("monthlyExpenses").value) || 1;
-            let investments = parseFloat(document.getElementById("investments").value) || 0;
-            let monthlyIncome = parseFloat(document.getElementById("monthlyIncome").value) || 1;
+        document.getElementById('calculatorForm').addEventListener('submit', function(event) {
+            event.preventDefault();
 
-            let ratio1 = (cashSavings / creditDebt).toFixed(2);
-            let ratio2 = (cashSavings / monthlyExpenses).toFixed(2);
-            let ratio3 = (investments / monthlyIncome).toFixed(2);
+            var savings = parseFloat(document.getElementById('savings').value);
+            var creditDebt = parseFloat(document.getElementById('creditDebt').value);
+            var monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value);
+            var expensesDebt = parseFloat(document.getElementById('expensesDebt').value);
+            var savingsInvestment = parseFloat(document.getElementById('savingsInvestment').value);
+            var monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value);
 
-            document.getElementById("ratio1").innerHTML = `🔹 สุขภาพทางการเงิน 1: <b>${ratio1}</b>`;
-            document.getElementById("ratio2").innerHTML = `🔹 สุขภาพทางการเงิน 2: <b>${ratio2}</b>`;
-            document.getElementById("ratio3").innerHTML = `🔹 สุขภาพทางการเงิน 3: <b>${ratio3}</b>`;
-        }
+            // คำนวณแต่ละ ratio
+            var ratio1 = savings / creditDebt;
+            var ratio2 = monthlyExpenses / expensesDebt;
+            var ratio3 = savingsInvestment / monthlyIncome;
+
+            // แสดงผลลัพธ์
+            document.getElementById('result1').innerHTML = ratio1.toFixed(2);
+            document.getElementById('result2').innerHTML = ratio2.toFixed(2);
+            document.getElementById('result3').innerHTML = ratio3.toFixed(2);
+        });
     </script>
 
 </body>
