@@ -31,8 +31,9 @@
             margin-bottom: 5px;
         }
         .input-group {
-            margin-bottom: 15px;
+            margin-bottom: 25px;
             display: flex;
+            flex-direction: column;
             align-items: center;
         }
         .input-group span {
@@ -42,24 +43,24 @@
             font-weight: bold;
         }
         .input-group input {
-            width: 30%;
+            width: 50%;
             padding: 8px;
-            margin: 0 10px;
+            margin-top: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
             box-sizing: border-box;
         }
         .input-group .equals {
-            display: inline-block;
-            width: 20%;
-            text-align: center;
             font-weight: bold;
+            margin-top: 10px;
         }
-        .result {
-            margin-top: 20px;
+        .input-group .result {
+            margin-top: 10px;
             background-color: #e7f5e7;
             padding: 10px;
             border-radius: 4px;
+            width: 50%;
+            text-align: center;
         }
         button {
             width: 30%;
@@ -86,6 +87,16 @@
             border-bottom: 1px solid #000;
             padding-bottom: 5px;
         }
+        .section-divider {
+            background-color: #f1f1f1;
+            margin-top: 20px;
+            padding: 10px 0;
+        }
+        .section-divider .divider-line {
+            height: 1px;
+            background-color: #ccc;
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 <body>
@@ -97,42 +108,50 @@
             <!-- ส่วนที่ 1: Savings / Credit Debt -->
             <div class="input-group">
                 <label for="savings">เงินฝากธนาคาร + เงินสด:</label>
+                <div class="fraction">
+                    <span class="top">___________________</span>
+                </div>
                 <input type="number" id="savings" required>
-                <span class="fraction">
-                    <span class="top">/</span>
-                </span>
-                <label for="creditDebt">หนี่บัตรเครดิต:</label>
+                <label for="creditDebt">หนี้บัตรเครดิต:</label>
                 <input type="number" id="creditDebt" required>
                 <div class="equals">=</div>
-                <div id="result1" class="result"></div>
+                <div id="result1" class="result">สุขภาพทางการเงิน 1</div>
                 <button type="button" onclick="calculateRatio1()">Calculate</button>
+            </div>
+
+            <div class="section-divider">
+                <div class="divider-line"></div>
             </div>
 
             <!-- ส่วนที่ 2: Savings / Monthly Expenses -->
             <div class="input-group">
-                <label for="savings">เงินฝากธนาคาร + เงินสด:</label>
+                <label for="savings2">เงินฝากธนาคาร + เงินสด:</label>
+                <div class="fraction">
+                    <span class="top">___________________</span>
+                </div>
                 <input type="number" id="savings2" required>
-                <span class="fraction">
-                    <span class="top">/</span>
-                </span>
                 <label for="monthlyExpenses">รายจ่ายต่อเดือน:</label>
                 <input type="number" id="monthlyExpenses" required>
                 <div class="equals">=</div>
-                <div id="result2" class="result"></div>
+                <div id="result2" class="result">สุขภาพทางการเงิน 2</div>
                 <button type="button" onclick="calculateRatio2()">Calculate</button>
+            </div>
+
+            <div class="section-divider">
+                <div class="divider-line"></div>
             </div>
 
             <!-- ส่วนที่ 3: Savings + Investments / Monthly Income -->
             <div class="input-group">
                 <label for="savingsInvestment">เงินออม+เงินลงทุนต่อเดือน:</label>
+                <div class="fraction">
+                    <span class="top">___________________</span>
+                </div>
                 <input type="number" id="savingsInvestment" required>
-                <span class="fraction">
-                    <span class="top">/</span>
-                </span>
                 <label for="monthlyIncome">รายได้ต่อเดือน:</label>
                 <input type="number" id="monthlyIncome" required>
                 <div class="equals">=</div>
-                <div id="result3" class="result"></div>
+                <div id="result3" class="result">สุขภาพทางการเงิน 3</div>
                 <button type="button" onclick="calculateRatio3()">Calculate</button>
             </div>
 
@@ -144,24 +163,23 @@
             var savings = parseFloat(document.getElementById('savings').value);
             var creditDebt = parseFloat(document.getElementById('creditDebt').value);
             var ratio1 = savings / creditDebt;
-            document.getElementById('result1').innerHTML = ratio1.toFixed(2);
+            document.getElementById('result1').innerHTML = "สุขภาพทางการเงิน 1: " + ratio1.toFixed(2);
         }
 
         function calculateRatio2() {
             var savings2 = parseFloat(document.getElementById('savings2').value);
             var monthlyExpenses = parseFloat(document.getElementById('monthlyExpenses').value);
             var ratio2 = savings2 / monthlyExpenses;
-            document.getElementById('result2').innerHTML = ratio2.toFixed(2);
+            document.getElementById('result2').innerHTML = "สุขภาพทางการเงิน 2: " + ratio2.toFixed(2);
         }
 
         function calculateRatio3() {
             var savingsInvestment = parseFloat(document.getElementById('savingsInvestment').value);
             var monthlyIncome = parseFloat(document.getElementById('monthlyIncome').value);
             var ratio3 = savingsInvestment / monthlyIncome;
-            document.getElementById('result3').innerHTML = ratio3.toFixed(2);
+            document.getElementById('result3').innerHTML = "สุขภาพทางการเงิน 3: " + ratio3.toFixed(2);
         }
     </script>
 
 </body>
 </html>
-
