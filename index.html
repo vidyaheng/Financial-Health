@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ตรวจสุขภาพทางการเงิน</title>
+    <title>สุขภาพทางการเงินแบบที่ 1</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -85,6 +85,7 @@
         <h1>ตรวจสุขภาพทางการเงิน</h1>
         
         <div id="page1" class="page active">
+            <h2>สุขภาพทางการเงินแบบที่ 1</h2>
             <div class="input-group">
                 <div class="fraction">
                     <label>เงินฝากธนาคาร + เงินสด</label>
@@ -95,7 +96,7 @@
                     <input type="text" id="creditDebt" oninput="formatNumber(this)">
                 </div>
                 <div class="result-container">
-                    <span>สุขภาพทางการเงิน 1:</span>
+                    <span>สุขภาพทางการเงิน:</span>
                     <div id="result1" class="result">0.00</div>
                 </div>
                 <button type="button" onclick="calculateRatio1()">Calculate</button>
@@ -104,6 +105,7 @@
         </div>
         
         <div id="page2" class="page">
+            <h2>สุขภาพทางการเงินแบบที่ 2</h2>
             <div class="input-group">
                 <div class="fraction">
                     <label>เงินฝากธนาคาร + เงินสด</label>
@@ -114,7 +116,7 @@
                     <input type="text" id="monthlyExpenses" oninput="formatNumber(this)">
                 </div>
                 <div class="result-container">
-                    <span>สุขภาพทางการเงิน 2:</span>
+                    <span>สุขภาพทางการเงิน:</span>
                     <div id="result2" class="result">0.00</div>
                 </div>
                 <button type="button" onclick="calculateRatio2()">Calculate</button>
@@ -124,6 +126,7 @@
         </div>
         
         <div id="page3" class="page">
+            <h2>สุขภาพทางการเงินแบบที่ 3</h2>
             <div class="input-group">
                 <div class="fraction">
                     <label>เงินออมต่อเดือน <br> <span>+</span> <br> เงินลงทุนต่อเดือน</label>
@@ -134,7 +137,7 @@
                     <input type="text" id="monthlyIncome" oninput="formatNumber(this)">
                 </div>
                 <div class="result-container">
-                    <span>สุขภาพทางการเงิน 3:</span>
+                    <span>สุขภาพทางการเงิน:</span>
                     <div id="result3" class="result">0.00%</div>
                 </div>
                 <button type="button" onclick="calculateRatio3()">Calculate</button>
@@ -179,14 +182,24 @@
         function nextPage(page) {
             document.querySelector('.active').classList.remove('active');
             document.getElementById('page' + page).classList.add('active');
+            updateTitle(page);
         }
 
         function prevPage(page) {
             document.querySelector('.active').classList.remove('active');
             document.getElementById('page' + page).classList.add('active');
+            updateTitle(page);
         }
+
+        function updateTitle(page) {
+            const titles = ["สุขภาพทางการเงินแบบที่ 1", "สุขภาพทางการเงินแบบที่ 2", "สุขภาพทางการเงินแบบที่ 3"];
+            document.title = titles[page - 1];
+        }
+
+        document.addEventListener('DOMContentLoaded', () => updateTitle(1));
     </script>
 </body>
 </html>
+
 
 
